@@ -1,0 +1,18 @@
+
+docker pull lscr.io/linuxserver/firefox:latest
+docker run -d \
+  --name=firefox \
+  --security-opt seccomp=unconfined `#optional` \
+  -e PUID=1000 \
+  -e PGID=1000 \
+	  -e TZ=Asia/Taipei \
+	  -e DOCKER_MODS=linuxserver/mods:universal-package-install \
+	  -e INSTALL_PACKAGES=font-noto-cjk \
+	  -e LC_ALL=zh_CN.UTF-8 \
+  -e FIREFOX_CLI=https://www.linuxserver.io/ `#optional` \
+  -p 3000:3000 \
+  -p 3001:3001 \
+  -v ./config:/config \
+  --shm-size="1gb" \
+  --restart unless-stopped \
+  lscr.io/linuxserver/firefox:latest
